@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Practicando VueJS</title>
+    <script src="vue.js"></script>
+  </head>
+  <body>
+    <div id="titulo">
+      <h1>{{ titulo }}</h1>
+      <hr>
+      <h2>Si quiere mas información, clic <a v-bind:href="link" target="_blank">aquí</a></h2>
+      <button type="button" name="cambiar" v-on:click="cambiarTitulo">Clic para cambiar el título</button>
+      <hr>
+      <h2>Clic en el botón para mostrar u ocultar un texto.</h2>
+      <p><span v-if="txt_visible">Que lindo que es VueJS</span></p>
+      <button type="button" v-on:click="showHideSpan">Mostrar / Ocultar</button>
+    </div>
+
+    <script>
+
+      new Vue({
+        el: '#titulo',
+        data: {
+          titulo: 'Bienvenido a VueJs',
+          link: 'http://vuejs.org',
+          txt_visible: false
+        },
+        methods: {
+          cambiarTitulo: function(){
+            this.titulo = 'Animate y aprendamos juntos!!!';
+          },
+          showHideSpan: function(){
+            this.txt_visible = !this.txt_visible;
+          }
+        }
+      });
+
+    </script>
+
+  </body>
+</html>
