@@ -2,11 +2,28 @@ new Vue({
   el: '#exercise',
   data: {
     classHighlight: false,
-    classShrink: false
+    classShrink: false,
+    classItalic: true,
+    classBold: 'bold',
+    userClass: '',
+    userClass2: '',
+    userClass2Bool: false,
+    myStyle: {
+      height: '100px',
+      width: '100px',
+      backgroundColor: 'green'
+    },
+    progress_counter: 0,
   },
   computed: {
     classes: function(){
-      return {highlight: this.classHighlight, shrink: this.classShrink};
+      return {
+        highlight: this.classHighlight,
+        shrink: this.classShrink
+      };
+    },
+    progress: function(){
+      return this.progress_counter + 'px';
     }
   },
   methods: {
@@ -19,7 +36,11 @@ new Vue({
       },2000);
     },
     startProgress: function() {
-
+      let vm = this;
+      let timer = setInterval(function(){
+        vm.progress_counter ++;
+        vm.progress_counter == 500 && clearInterval(timer);
+      }, 10);
     }
   }
 });
