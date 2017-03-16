@@ -1,0 +1,16 @@
+.marco_reproductor {
+  height: 400px;
+  width: 700px;
+}
+
+.inline {
+  display: inline;
+}
+
+#reproductor_component {
+  background-color: #FAFAFA;
+  border: 1px dashed black;
+  margin-top: 10px;
+  padding: 0.5em;
+  width: 750px;
+}
