@@ -14,16 +14,13 @@
         <h2>Compilación de videos</h2>
         <hr>
         <h2>Elija un video:</h2>
-        <select v-model="video_elegido" @change="cargar_video">
+        <select @change="cargar_video" v-model="selected_video">
           <option value="0">Ninguno</option>
-          <option value="1">Ley Del Mal</option>
-          <option value="2">Lucha Criolla</option>
-          <option value="3">Mentiras En Papel</option>
-          <option value="4">Un Nuevo Camino</option>
+          <option :value="index + 1" v-for="(video, index) in videos">{{ video.nombre }}</option>
         </select>
       </div>
       <hr>
-      <div id="reproductor_component" v-if="video_elegido != 0">
+      <div id="reproductor_component" v-if="selected_video > 0">
         <div class="reproductor_header">
           <h2 class="inline">Titulo: </h2><h1 class="inline">{{ titulo }}</h1>
           <br>
@@ -44,53 +41,36 @@
           titulo: '',
           album: '',
           link_video: '',
-          videos: {
-            video1: {
+          selected_video: 0,
+          videos: [
+            {
               nombre: 'Ley Del Mal',
               album: 'Información Demente',
               link: '<div style="position:relative;height:0;padding-bottom:56.25%"><iframe src="https://www.youtube.com/embed/GOK5BSo_E7M?rel=0&amp;showinfo=0?ecver=2" width="640" height="360" frameborder="0" style="position:absolute;width:100%;height:100%;left:0" allowfullscreen></iframe></div>'
             },
-            video2: {
+            {
               nombre: 'Lucha Criolla',
               album: 'Sigue La Ruta',
               link: '<div style="position:relative;height:0;padding-bottom:56.25%"><iframe src="https://www.youtube.com/embed/jJYTh2lvIkA?rel=0&amp;showinfo=0?ecver=2" width="640" height="360" frameborder="0" style="position:absolute;width:100%;height:100%;left:0" allowfullscreen></iframe></div>'
             },
-            video3: {
+            {
               nombre: 'Mentiras En Papel',
               album: 'Sembrando El Metal',
               link: '<div style="position:relative;height:0;padding-bottom:56.25%"><iframe src="https://www.youtube.com/embed/kn97Ko-6zqk?rel=0&amp;showinfo=0?ecver=2" width="640" height="360" frameborder="0" style="position:absolute;width:100%;height:100%;left:0" allowfullscreen></iframe></div>'
             },
-            video4: {
+            {
               nombre: 'Un Nuevo Camino',
               album: 'Información Demente',
               link: '<div style="position:relative;height:0;padding-bottom:56.25%"><iframe src="https://www.youtube.com/embed/BYPRk_2gYxs?ecver=2" width="640" height="360" frameborder="0" style="position:absolute;width:100%;height:100%;left:0" allowfullscreen></iframe></div>'
             }
-          },
-          video_elegido: 0
+          ]
         },
         methods: {
-          cargar_video: function(){
-            if (this.video_elegido == 1)
-            {
-              this.link_video = this.videos.video1.link;
-              this.titulo = this.videos.video1.nombre;
-              this.album = this.videos.video1.album;
-            }
-            else if (this.video_elegido == 2) {
-              this.link_video = this.videos.video2.link;
-              this.titulo = this.videos.video2.nombre;
-              this.album = this.videos.video2.album;
-            }
-            else if (this.video_elegido == 3) {
-              this.link_video = this.videos.video3.link;
-              this.titulo = this.videos.video3.nombre;
-              this.album = this.videos.video3.album;
-            }
-            else if (this.video_elegido == 4) {
-              this.link_video = this.videos.video4.link;
-              this.titulo = this.videos.video4.nombre;
-              this.album = this.videos.video4.album;
-            }
+          cargar_video: function(event){
+            let id_video = event.target.value - 1;
+            this.titulo = this.videos[id_video].nombre;
+            this.album = this.videos[id_video].album;
+            this.link_video = this.videos[id_video].link;
           }
         }
 
