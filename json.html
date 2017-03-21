@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Json Parsing</title>
+  </head>
+  <body>
+    <p id="obj"></p>
+    <p id="res"></p>
+  </body>
+
+  <script>
+    let nombres = ['Paul', 'Roman', 'Vasya', 'Anton', 'Egor'];
+
+    let libros = [
+      {
+        nombre: 'Los dias del venado',
+        autor: 'Liliana Bodoc',
+        editorial: 'Planeta'
+      },
+      {
+        nombre: 'Los dias de la sombra',
+        autor: 'Liliana Bodoc',
+        editorial: 'Planeta'
+      },
+      {
+        nombre: 'Los dias del fuego',
+        autor: 'Liliana Bodoc',
+        editorial: 'Planeta'
+      },
+      {
+        nombre: 'Om Guru Om',
+        autor: 'Ada Albretch',
+        editorial: 'Hastinapura'
+      }
+    ];
+
+    document.getElementById('obj').innerHTML = JSON.stringify(libros);
+
+    localStorage.setItem('libros2', JSON.stringify(libros));
+
+    let libros2 = JSON.parse(localStorage.getItem('libros'));
+
+    //localStorage.removeItem('libros');
+
+    document.getElementById('res').innerHTML = libros2[1].nombre;
+
+  </script>
+</html>
