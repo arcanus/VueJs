@@ -1,5 +1,9 @@
-.contenedor_principal {
-  background-color: grey;
+body {
   display: flex;  
-  width: 500px;
+}
+
+.contenedor_principal {
+  align-items: center;
+  background-color: #DBDBDB;
+  width: 80%;
 }
