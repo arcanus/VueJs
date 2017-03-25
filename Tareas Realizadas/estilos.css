@@ -1,9 +1,29 @@
-body {
-  display: flex;  
-}
-
 .contenedor_principal {
   align-items: center;
   background-color: #DBDBDB;
-  width: 80%;
+  box-shadow: 5px 5px 5px #e8e8e8;
+  display: flex;
+  flex-flow: row wrap;
+  margin: 1em auto;
+  padding: 1em 2em;
+  width: 70%;
+}
+
+.cabecera {
+  text-align: center;
+  width: 100%;
+}
+
+.lista_tareas {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+
+.tarea-info {
+  flex-grow: 1;
+}
+
+.tarea-descripcion {
+  flex-grow: 3;
 }
