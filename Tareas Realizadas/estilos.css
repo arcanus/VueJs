@@ -14,16 +14,20 @@
   width: 100%;
 }
 
+.panel-acciones {
+  display: flex;
+  flex-flow: column nowrap;
+  text-align: left;
+}
+
 .lista_tareas {
-  display: inline-flex;
-  flex-wrap: nowrap;
   width: 100%;
 }
 
 .tarea-info {
-  flex-grow: 1;
+  margin-left: 1em;
 }
 
 .tarea-descripcion {
-  flex-grow: 3;
+  margin-left: 1em;
 }
