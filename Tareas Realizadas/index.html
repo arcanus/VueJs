@@ -116,15 +116,25 @@
       },
       methods: {
         guardar_tarea: function() {
+          var vue = this;
           this.tareas.push(this.tarea);
-          this.guardarEnLS();
+          this.guardarEnLS(function(){
+            vue.resetFormTareas();
+          });
         },
         eliminarTarea: function(i) {
           this.tareas.splice(i, 1);
           this.guardarEnLS();
         },
-        guardarEnLS: function() {
+        guardarEnLS: function(success) {
           localStorage.setItem('tareas', JSON.stringify(this.tareas));
+          success();
+        },
+        resetFormTareas: function() {
+          this.tarea.nombre = '';
+          this.tarea.usuario = '';
+          this.tarea.ticket = '';
+          this.tarea.desc = '';
         }
       }
     });
