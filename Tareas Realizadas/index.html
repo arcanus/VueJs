@@ -12,6 +12,9 @@
 
     <link rel="stylesheet" href="estilos.css">
 
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+
     <!-- Jquery 3 -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 
@@ -20,6 +23,10 @@
 
     <!-- Vue Js Development Version -->
     <script src="vue.js" charset="utf-8"></script>
+
+    <!-- Clipboard-JS -->
+    <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.0/clipboard.min.js"></script>
+
   </head>
 
   <body>
@@ -28,12 +35,14 @@
 
       <header class="cabecera">
 
-        <h1>Tareas Realizadas</h1>
-        <h3 v-if="tareas.length === 0">No hay tareas activas </h3>
-        <h3 v-else-if="tareas.length === 1">Hay una tarea activa</h3>
-        <h3 v-else>Hay {{ tareas.length }} tareas activas</h3>
+        <h1 class="animated bounce">Tareas Realizadas</h1>
+        <h3 class="animated flipInX"v-if="tareas.length === 0">No hay tareas activas </h3>
+        <h3 class="animated flipInX"v-else-if="tareas.length === 1">Hay una tarea activa</h3>
+        <h3 class="animated flipInX"v-else>Hay {{ tareas.length }} tareas activas</h3>
 
-        <div class="panel panel-primary panel-acciones">
+        <hr>
+
+        <div class="panel panel-primary panel-acciones animated zoomIn">
 
           <div class="panel-heading">
             <h3 class="panel-title">Acciones:</h3>
@@ -43,8 +52,9 @@
 
             <button class="btn btn-primary" type="button" data-toggle="collapse" href="#collapse-formTarea"
                   aria-expanded="false" aria-controls="collapse-formTarea">Ingresar Nueva Tarea</button>
-            <button class="btn btn-primary" type="button">
-                Exportar Tareas Para Mail</button>
+
+            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalTareas">Exportar Tareas Para Mail</button>
+
             <div class="collapse" id="collapse-formTarea">
 
               <div class="panel panel-primary panel-acciones">
@@ -89,7 +99,7 @@
 
       </header>
 
-      <section class="lista_tareas">
+      <section class="lista_tareas animated zoomIn">
 
         <ul class="list-group">
 
@@ -121,10 +131,35 @@
 
       </section>
 
+      <!-- MODAL MAIL -->
+      <section>
+
+        <div class="modal fade" id="modalTareas" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Tareas Realizadas:</h4>
+              </div>
+              <div class="modal-body">
+                <textarea class="form-control" id="txtTareas" rows="20">{{cargarTareas()}}</textarea>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-success btnCopiarMail"
+                  data-clipboard-action="copy" data-clipboard-target="#txtTareas">Copiar Mail</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+      </section>
+      <!-- /MODAL MAIL -->
+
     </article>
 
     <script src="model.vue.js" charset="utf-8"></script>
 
   </body>
-  
+
 </html>

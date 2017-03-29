@@ -42,6 +42,6 @@
   margin-left: 1em;
 }
 
-#txtDescripcion {
+#txtDescripcion #txtTareas {
   resize: vertical;
 }
