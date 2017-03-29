@@ -30,6 +30,14 @@
   margin-left: 1em;
 }
 
+.tarea-info h3:hover {
+  text-decoration: underline;
+}
+
+.tarea-info h4 {
+  color: #a0a0a0;
+}
+
 .tarea-descripcion {
   margin-left: 1em;
 }

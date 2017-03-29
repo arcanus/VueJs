@@ -26,6 +26,9 @@
 
       <header class="cabecera">
         <h1>Tareas Realizadas</h1>
+        <h3 v-if="tareas.length === 0">No hay tareas activas </h3>
+        <h3 v-else-if="tareas.length === 1">Hay una tarea activa</h3>
+        <h3 v-else>Hay {{ tareas.length }} tareas activas</h3>
 
         <div class="panel panel-primary panel-acciones">
           <div class="panel-heading">
@@ -34,7 +37,7 @@
           <div class="panel-body">
             <button class="btn btn-primary" type="button" data-toggle="collapse" href="#collapse-formTarea"
                   aria-expanded="false" aria-controls="collapse-formTarea">Ingresar Nueva Tarea</button>
-            <button class="btn btn-primary" type="button" v-on:click="guardar_tarea">
+            <button class="btn btn-primary" type="button">
                 Exportar Tareas Para Mail</button>
 
             <div class="collapse" id="collapse-formTarea">
@@ -43,7 +46,7 @@
                   <h3 class="panel-title">Nueva Tarea:</h3>
                 </div>
                 <div class="panel-body">
-                    <form>
+                    <form @submit="submitFormTarea">
                       <div class="form-group">
                         <label for="txtTarea">Nombre De La Tarea:</label>
                         <input class="form-control" type="text" id="txtTarea" v-model="nuevaTarea.nombre">
@@ -62,7 +65,7 @@
                       </div>
                       <div class="form-group">
                         <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapse-formTarea">Cancelar</button>
-                        <button class="btn btn-success" type="button" @click="guardar_tarea"
+                        <button class="btn btn-success" type="submit"
                           data-toggle="collapse" data-target="#collapse-formTarea">Almacenar Tarea</button>
                       </div>
                     </form>
@@ -78,9 +81,9 @@
           <li class="list-group-item" v-for="(tarea, i) in tareas" :indice="i">
             <div class="tarea-info" data-toggle="collapse" :href="'#collapse-tarea-'+i"
                   aria-expanded="false" aria-controls="'collapse-tarea-'+i">
-              <h3>Tarea: <strong>{{ tarea.nombre }}</strong></h3>
-              <h4>Usuario: <strong>{{ tarea.usuario }}</strong></h4>
-              <h5>Ticket: <strong>{{ tarea.ticket }}</strong></h5>
+              <h3><strong>{{ tarea.nombre }}</strong></h3>
+              <h4><strong>{{ tarea.usuario }}</strong></h4>
+              <h5><strong>Ticket #{{ tarea.ticket }}</strong></h5>
             </div>
             <div class="tarea-descripcion">
               <div class="tarea-acciones">
@@ -115,11 +118,6 @@
         }
       },
       methods: {
-        guardar_tarea: function() {          
-          this.tareas.push(this.nuevaTarea);
-          this.guardarEnLS();
-          this.resetFormTareas();
-        },
         eliminarTarea: function(i) {
           this.tareas.splice(i, 1);
           this.guardarEnLS();
@@ -132,6 +130,20 @@
           this.nuevaTarea.usuario = '';
           this.nuevaTarea.ticket = '';
           this.nuevaTarea.desc = '';
+        },
+        submitFormTarea: function(e) {
+          this.tareas.push({
+            nombre: this.nuevaTarea.nombre,
+            usuario: this.nuevaTarea.usuario,
+            ticket: this.nuevaTarea.ticket,
+            desc: this.nuevaTarea.desc
+          });
+          this.guardarEnLS();
+          this.resetFormTareas();
+          e.preventDefault();
+        },
+        tareas_activas: function() {
+          return 'Hay 1 tarea activa';
         }
       }
     });
