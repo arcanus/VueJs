@@ -46,19 +46,19 @@
                     <form>
                       <div class="form-group">
                         <label for="txtTarea">Nombre De La Tarea:</label>
-                        <input class="form-control" type="text" id="txtTarea" v-model="tarea.nombre">
+                        <input class="form-control" type="text" id="txtTarea" v-model="nuevaTarea.nombre">
                       </div>
                       <div class="form-group">
                         <label for="txtUsuario">Nombre Del Usuario:</label>
-                        <input class="form-control" type="text" id="txtUsuario" v-model="tarea.usuario">
+                        <input class="form-control" type="text" id="txtUsuario" v-model="nuevaTarea.usuario">
                       </div>
                       <div class="form-group">
                         <label for="txtTicket">Número De Ticket:</label>
-                        <input class="form-control" type="text" id="txtTicket" v-model="tarea.ticket">
+                        <input class="form-control" type="text" id="txtTicket" v-model="nuevaTarea.ticket">
                       </div>
                       <div class="form-group">
                         <label for="txtDescripcion">Descripción:</label>
-                        <textarea class="form-control" id="txtDescripcion" rows="4" v-model="tarea.desc"></textarea>
+                        <textarea class="form-control" id="txtDescripcion" rows="4" v-model="nuevaTarea.desc"></textarea>
                       </div>
                       <div class="form-group">
                         <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapse-formTarea">Cancelar</button>
@@ -107,7 +107,7 @@
       el: '#VueApp',
       data: {
         tareas: JSON.parse(localStorage.getItem('tareas')),
-        tarea: {
+        nuevaTarea: {
           nombre: '',
           usuario: '',
           ticket: '',
@@ -115,26 +115,23 @@
         }
       },
       methods: {
-        guardar_tarea: function() {
-          var vue = this;
-          this.tareas.push(this.tarea);
-          this.guardarEnLS(function(){
-            vue.resetFormTareas();
-          });
+        guardar_tarea: function() {          
+          this.tareas.push(this.nuevaTarea);
+          this.guardarEnLS();
+          this.resetFormTareas();
         },
         eliminarTarea: function(i) {
           this.tareas.splice(i, 1);
           this.guardarEnLS();
         },
-        guardarEnLS: function(success) {
+        guardarEnLS: function() {
           localStorage.setItem('tareas', JSON.stringify(this.tareas));
-          success();
         },
         resetFormTareas: function() {
-          this.tarea.nombre = '';
-          this.tarea.usuario = '';
-          this.tarea.ticket = '';
-          this.tarea.desc = '';
+          this.nuevaTarea.nombre = '';
+          this.nuevaTarea.usuario = '';
+          this.nuevaTarea.ticket = '';
+          this.nuevaTarea.desc = '';
         }
       }
     });
