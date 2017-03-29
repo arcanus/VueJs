@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <meta charset="utf-8">
     <title>Tareas Realizadas</title>
@@ -20,31 +21,38 @@
     <!-- Vue Js Development Version -->
     <script src="vue.js" charset="utf-8"></script>
   </head>
+
   <body>
 
     <article class="contenedor_principal" id="VueApp">
 
       <header class="cabecera">
+
         <h1>Tareas Realizadas</h1>
         <h3 v-if="tareas.length === 0">No hay tareas activas </h3>
         <h3 v-else-if="tareas.length === 1">Hay una tarea activa</h3>
         <h3 v-else>Hay {{ tareas.length }} tareas activas</h3>
 
         <div class="panel panel-primary panel-acciones">
+
           <div class="panel-heading">
             <h3 class="panel-title">Acciones:</h3>
           </div>
+
           <div class="panel-body">
+
             <button class="btn btn-primary" type="button" data-toggle="collapse" href="#collapse-formTarea"
                   aria-expanded="false" aria-controls="collapse-formTarea">Ingresar Nueva Tarea</button>
             <button class="btn btn-primary" type="button">
                 Exportar Tareas Para Mail</button>
-
             <div class="collapse" id="collapse-formTarea">
+
               <div class="panel panel-primary panel-acciones">
+
                 <div class="panel-heading">
                   <h3 class="panel-title">Nueva Tarea:</h3>
                 </div>
+
                 <div class="panel-body">
                     <form @submit="submitFormTarea">
                       <div class="form-group">
@@ -70,21 +78,30 @@
                       </div>
                     </form>
                 </div>
+
               </div>
+
             </div>
+
           </div>
+
         </div>
+
       </header>
 
       <section class="lista_tareas">
+
         <ul class="list-group">
+
           <li class="list-group-item" v-for="(tarea, i) in tareas" :indice="i">
+
             <div class="tarea-info" data-toggle="collapse" :href="'#collapse-tarea-'+i"
                   aria-expanded="false" aria-controls="'collapse-tarea-'+i">
               <h3><strong>{{ tarea.nombre }}</strong></h3>
               <h4><strong>{{ tarea.usuario }}</strong></h4>
               <h5><strong>Ticket #{{ tarea.ticket }}</strong></h5>
             </div>
+
             <div class="tarea-descripcion">
               <div class="tarea-acciones">
                 <button type="button" name="button" class="btn btn-danger btn-xs" @click="eliminarTarea(i)">
@@ -97,58 +114,17 @@
                 </div>
               </div>
             </div>
+
           </li>
+
         </ul>
+
       </section>
 
     </article>
 
-
-  <script>
-
-    new Vue({
-      el: '#VueApp',
-      data: {
-        tareas: JSON.parse(localStorage.getItem('tareas')),
-        nuevaTarea: {
-          nombre: '',
-          usuario: '',
-          ticket: '',
-          desc: ''
-        }
-      },
-      methods: {
-        eliminarTarea: function(i) {
-          this.tareas.splice(i, 1);
-          this.guardarEnLS();
-        },
-        guardarEnLS: function() {
-          localStorage.setItem('tareas', JSON.stringify(this.tareas));
-        },
-        resetFormTareas: function() {
-          this.nuevaTarea.nombre = '';
-          this.nuevaTarea.usuario = '';
-          this.nuevaTarea.ticket = '';
-          this.nuevaTarea.desc = '';
-        },
-        submitFormTarea: function(e) {
-          this.tareas.push({
-            nombre: this.nuevaTarea.nombre,
-            usuario: this.nuevaTarea.usuario,
-            ticket: this.nuevaTarea.ticket,
-            desc: this.nuevaTarea.desc
-          });
-          this.guardarEnLS();
-          this.resetFormTareas();
-          e.preventDefault();
-        },
-        tareas_activas: function() {
-          return 'Hay 1 tarea activa';
-        }
-      }
-    });
-
-  </script>
+    <script src="model.vue.js" charset="utf-8"></script>
 
   </body>
+  
 </html>
