@@ -27,6 +27,7 @@
     <!-- Clipboard-JS -->
     <script src="https://cdn.jsdelivr.net/clipboard.js/1.6.0/clipboard.min.js"></script>
 
+
   </head>
 
   <body>
@@ -50,10 +51,20 @@
 
           <div class="panel-body">
 
-            <button class="btn btn-primary" type="button" data-toggle="collapse" href="#collapse-formTarea"
-                  aria-expanded="false" aria-controls="collapse-formTarea">Ingresar Nueva Tarea</button>
+            <div class="form-group">
+              <label>Técnico Responsable:</label>
+              <select class="form-control select-tecnico" v-model="tecnico" @change="guardarTecnico">                
+                <option v-for="(tec, i) in tecnicos" :value="i">{{ tec }}</option>
+              </select>
+            </div>
 
-            <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalTareas">Exportar Tareas Para Mail</button>
+            <div class="form-group">
+              <button class="btn btn-primary" type="button" data-toggle="collapse" href="#collapse-formTarea"
+                    aria-expanded="false" aria-controls="collapse-formTarea">Ingresar Nueva Tarea</button>
+
+              <button class="btn btn-primary" type="button" data-toggle="modal"
+                    data-target="#modalTareas">Exportar Tareas Para Mail</button>
+            </div>
 
             <div class="collapse" id="collapse-formTarea">
 
@@ -147,6 +158,7 @@
               <div class="modal-footer">
                 <button type="button" class="btn btn-success btnCopiarMail"
                   data-clipboard-action="copy" data-clipboard-target="#txtTareas">Copiar Mail</button>
+                <button type="button" class="btn btn-info" @click="enviarMail">Enviar Mail</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
             </div><!-- /.modal-content -->
@@ -157,6 +169,8 @@
       <!-- /MODAL MAIL -->
 
     </article>
+
+    <script src="http://smtpjs.com/smtp.js"></script>
 
     <script src="model.vue.js" charset="utf-8"></script>
 

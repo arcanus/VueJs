@@ -9,7 +9,14 @@ new Vue({
       usuario: '',
       ticket: '',
       desc: ''
-    }
+    },
+    tecnico: localStorage.getItem('tecnico'),
+    tecnicos: [
+      'Paulo Vazquez',
+      'David Infante',
+      'Santiago Castellanos',
+      'German Del Tedesco'
+    ]
   },
   methods: {
     eliminarTarea: function(i) {
@@ -37,25 +44,23 @@ new Vue({
       e.preventDefault();
     },
     cargarTareas: function() {
-
       let mail = '';
 
       mail = 'Tareas Realizadas:\n';
       mail += '==================\n\n';
 
       mail += 'Fecha: ' + this.obtenerFecha() + '\n';
-      mail += 'Técnico: Paulo Vazquez\n\n';
+      mail += 'Técnico: ' + this.tecnicos[this.tecnico];
 
       this.tareas.forEach(function(tarea){
+        mail += '\n\n';
         mail += 'Tarea: ' + tarea.nombre + '\n';
         mail += 'Usuario: ' + tarea.usuario + '\n';
         mail += 'Ticket: ' + tarea.ticket + '\n';
-        mail += 'Descripcion: ' + tarea.desc + '\n\n';
+        mail += 'Descripcion: ' + tarea.desc;
 
       })
-
       return mail;
-
     },
     obtenerFecha: function() {
       var today = new Date();
@@ -74,6 +79,12 @@ new Vue({
       today = mm+'/'+dd+'/'+yyyy;
 
       return today;
+    },
+    enviarMail: function() {
+      alert('Función momentaneamente deshabilitada...');
+    },
+    guardarTecnico: function() {
+      localStorage.setItem('tecnico',this.tecnico);
     }
   }
 });

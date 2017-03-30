@@ -42,6 +42,10 @@
   margin-left: 1em;
 }
 
+.select-tecnico {
+  width: 300px;
+}
+
 #txtDescripcion #txtTareas {
   resize: vertical;
 }
